@@ -21,4 +21,21 @@ class Solution {
             inorderTraversalHelper(node.right, results);
         }
     }
+
+    public List<Integer> inorderIterative(TreeNode root) {
+        List<Integer> results = new ArrayList<>();
+        if (root == null) return results;
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode curr = root;
+        while (curr != null || !stack.isEmpty()) {
+            while (curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+            curr = stack.pop();
+            results.add(curr.val);
+            curr = curr.right;
+        }
+        return results;
+    }
 }

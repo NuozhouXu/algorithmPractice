@@ -21,4 +21,20 @@ class Solution {
             results.add(node.val);
         }
     }
+
+    public List<Integer> postorderIterative(TreeNode root) {
+        List<Integer> results = new ArrayList<>();
+        if (root == null) return results;
+        Deque<TreeNode> stack = new ArrayDeque<>();
+
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            results.add(0, node.val);
+            if (node.left != null) stack.push(node.left);
+            if (node.right != null) stack.push(node.right);
+        }
+
+        return results;
+    }
 }

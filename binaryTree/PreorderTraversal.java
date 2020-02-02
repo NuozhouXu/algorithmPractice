@@ -21,4 +21,18 @@ class Solution {
             preorderTraversalHelper(node.right, results);
         }
     }
+
+    public List<Integer> preorderTraversalIterative(TreeNode root) {
+        List<Integer> results = new ArrayList<>();
+        if (root == null) return results;
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            results.add(node.val);
+            if (node.right != null) stack.push(node.right);
+            if (node.left != null) stack.push(node.left);
+        }
+        return results;
+    }
 }
