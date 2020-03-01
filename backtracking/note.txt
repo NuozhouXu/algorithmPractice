@@ -1,0 +1,6 @@
+Choice: Make a decision
+Constraints: What's a valid decision
+Goal: 
+https://www.youtube.com/watch?v=Zq4upTEaQyM
+
+Example: Solve soduku
