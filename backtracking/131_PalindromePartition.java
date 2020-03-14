@@ -1,4 +1,5 @@
 class Solution {
+    // O(n * 2^n)
     public List<List<String>> partition(String s) {
         List<List<String>> results = new ArrayList<>();
         backtrack(results, new ArrayList<>(), 0, s);
@@ -32,4 +33,6 @@ class Solution {
 
         return true;
     }
+
+    // O(2^n) DP optimization https://leetcode.com/problems/palindrome-partitioning/discuss/41982/Java-DP-%2B-DFS-solution
 }
