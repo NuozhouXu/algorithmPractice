@@ -1,36 +1,33 @@
 class Solution {
-    // O(n * 2^n)
+    // O(n * 2^n) time, O(n) space
     public List<List<String>> partition(String s) {
         List<List<String>> results = new ArrayList<>();
-        backtrack(results, new ArrayList<>(), 0, s);
+        backtrack(s, new ArrayList<>(), results, 0);
         return results;
     }
     
-    private void backtrack(List<List<String>> results, List<String> currentPartition, int startIndex, String s) {
-        if (startIndex == s.length()) {
-            results.add(new ArrayList<>(currentPartition));
-            return;
+    private void backtrack(String s, List<String> curr, List<List<String>> results, int index) {
+        if (index == s.length()) {
+            results.add(new ArrayList<>(curr));
         } else {
-            for (int i = startIndex; i < s.length(); i++) {
-                if (isPalindrome(startIndex, i, s)) {
-                    currentPartition.add(s.substring(startIndex, i + 1));
-                    backtrack(results, currentPartition, i + 1, s);
-                    currentPartition.remove(currentPartition.size() - 1);
+            for (int i = index; i < s.length(); i++) {
+                if (isPalindrome(s, index, i)) {
+                    curr.add(s.substring(index, i + 1));
+                    backtrack(s, curr, results, i + 1);
+                    curr.remove(curr.size() - 1);
                 }
             }
         }
     }
     
-    private boolean isPalindrome(int left, int right, String s) {
-        while (left < right) {
-        if (s.charAt(left) != s.charAt(right)) {
-            return false;
+    private boolean isPalindrome(String s, int start, int end) {
+        int l = start;
+        int r = end;
+        while (l < r) {
+            if (s.charAt(l) != s.charAt(r)) return false;
+            l++;
+            r--;
         }
-
-        left++;
-        right--;
-        }
-
         return true;
     }
 
