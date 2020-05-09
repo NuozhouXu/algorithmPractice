@@ -1,5 +1,6 @@
-class Solution {
-    
+class Solution { 
+    // O(N * 4^L) where N is the number of cells in the board and L is the length of the word to be matched.
+    // O(L) space
     public boolean exist(char[][] board, String word) {
         if (word == null || word.length() == 0 || board.length == 0 || board[0].length == 0) return false;
         for (int i = 0; i < board.length; i++) {
