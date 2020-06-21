@@ -1,0 +1,55 @@
+DP = Recursion + Try all guesses + Memoization
+
+Top-down
+memoize and re-use solutions to subproblems that help solve the problem
+time = #subproblems * time to solve a subproblem (treating recursive calls as O(1))
+Don't count recursion trees
+subproblems dependencies should be acyclic for this to work
+dynamic programming is essentially computing shortest path in some DAG
+
+Bottom-up
+topological sort of the subproblems dependency DAG
+can often save storage space 
+
+5 Steps to Dynamic programming
+(1) Define subproblems
+(2) Guess (part of the solution)
+(3) Relate subproblem solutions (Recurrence relationship)
+(4) recursive & memoize OR build DP table bottom-up
+(5) solve original problem
+
+
+Subproblem for string/sequences
+-- suffixes x[i:] for all i  O(n)
+-- prefixes x[:i] for all i  O(n)
+-- substrings x[i: j] for all i <= j  O(n^2)
+
+
+DP Pattern
+
+1. 时间序列型
+给出一个序列（数组，字符串），其中每一个元素可以认为“一天”，并且今天的状态只取决于昨天的状态
+House Robber 198
+House Robber2 213
+Best Time to Buy and Sell Stock3 123
+Best Time to Buy and Sell with Cooldown 309
+Wiggle Subsequence 376
+...
+
+2. 时间序列加强版
+给出一个序列（数组，字符串），其中每一个元素可以认为“一天”，但今天的状态和之前的某一天有关
+Longest Increasing Sequence 300
+Largest Divisible Subset 329
+Filling Bookcase Shelves 1105
+
+3. 双序列型
+给出两个序列s, t, 对其进行操作
+Longest Common Subsequence
+
+定义dp[i][j] 表示针对 s[1: i] 和 t[1: j] subproblem的解
+recurrence 通常跟 dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1] 相关
+最终结果是 dp[m][n]
+
+4. 区间型
+
+
