@@ -24,7 +24,7 @@ class Solution {
     }
 
     // Bottom up DP. Time O(S*n). where S is the amount, n is denomination count.
-    // Space O(S) dp table
+    // Space O(S) dp table, similar Maximum Ribbon Cut
     public int coinChangeBottomUp(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
         Arrays.fill(dp, amount + 1);

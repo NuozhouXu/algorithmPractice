@@ -6,7 +6,7 @@ public class Solution {
      * @param m: An integer
      * @return: an array
      */
-    public int backPackIII(int[] A, int[] V, int m) {
+    public int backPackIII(int[] A, int[] V, int m) { // Rod cutting is the same problem
         // write your code here
         int[][] dp = new int[A.length + 1][m + 1];
         for (int i = 1; i <= A.length; i++) {

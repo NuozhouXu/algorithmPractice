@@ -37,4 +37,36 @@ class Solution {
         dp.put(index, resultMap);
         return result;
     }
+
+    public int findTargetSumWaysOptimal(int[] nums, int S) {
+        int sum = 0;
+        for (int n : nums) sum += n;
+        return (sum < S || (S + sum) % 2 > 0) ? 0 : subsetSum(nums, (S + sum) / 2); 
+    }
+    
+    public int subsetSum(int[] nums, int s) {
+        int[][] dp = new int[nums.length + 1][s + 1];
+        dp[0][0] = 1; // Only setting first 0, 0 to 1, since the numbers here can be 0. If nums are all positive, we can set all first column to 1.
+        for (int i = 1; i <= nums.length; i++) {
+            for (int j = 0; j <= s; j++) {
+                dp[i][j] = dp[i - 1][j];
+                if (j >= nums[i - 1]) {
+                    dp[i][j] += dp[i - 1][j - nums[i - 1]];
+                }
+            }
+        }
+        return dp[nums.length][s];
+    }
+    
+    public int subsetSum2(int[] nums, int s) {
+        int[] dp = new int[s + 1]; 
+        dp[0] = 1;
+        for (int i = 1; i <= nums.length; i++)
+            for (int j = s; j >= 0; j--) { // space optimization for 0/1 knapsack, go from the back, because each i, j depends on i - 1, with a smaller j 
+                if (j >= nums[i - 1]) {
+                    dp[j] += dp[j - nums[i - 1]];
+                }
+            }
+        return dp[s];
+    } 
 }

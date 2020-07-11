@@ -48,7 +48,7 @@ class Solution {
         int size = 0;
         for (int x : nums) {
             int i = 0, j = size;
-            while (i != j) {
+            while (i < j) {
                 int m = (i + j) / 2;
                 if (tails[m] < x)
                     i = m + 1;
