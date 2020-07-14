@@ -20,11 +20,12 @@ class Node {
     }
 };
 */
+
 class Solution {
     public Node connect(Node root) {
         if (root == null) return null;
         Deque<Node> queue = new ArrayDeque<>();
-        queue.add(root);
+        queue.offer(root);
         while (!queue.isEmpty()) {
             int size = queue.size();
             for (int i = 0; i < size; i++) {
@@ -33,30 +34,15 @@ class Solution {
                     node.next = queue.peek();
                 }
                 if (node.left != null) {
-                    queue.add(node.left);
+                    queue.offer(node.left);
                 }
                 if (node.right != null) {
-                    queue.add(node.right);
+                    queue.offer(node.right);
                 }
             }
         }
         return root;
     }
 
-    public Node connectNoSpace(Node root) {
-        if (root == null) return null;
-        Node head = root;
-        while (head.left != null) {
-            Node curr = head;
-            while (curr != null) {
-                curr.left.next = curr.right;
-                if (curr.next != null) {
-                    curr.right.next = curr.next.left;
-                }
-                curr = curr.next;
-            }
-            head = head.left;
-        }
-        return root;
-    }
+    
 }
