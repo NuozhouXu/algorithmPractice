@@ -1,4 +1,39 @@
 class Solution {
+
+    public int[] findOrderKahn(int numCourses, int[][] prerequisites) {
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        Map<Integer, Integer> indegrees = new HashMap<>();
+        for (int i = 0; i < numCourses; i++) {
+            graph.put(i, new ArrayList<>());
+        }
+        for (int i = 0; i < prerequisites.length; i++) {
+            graph.get(prerequisites[i][1]).add(prerequisites[i][0]);
+            indegrees.put(prerequisites[i][0], indegrees.getOrDefault(prerequisites[i][0], 0) + 1);
+        }
+        Deque<Integer> queue = new ArrayDeque<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (indegrees.getOrDefault(i, 0) == 0) {
+                queue.offer(i);
+            }
+        }
+        int[] topologicalOrder = new int[numCourses];
+        int index = 0;
+        while (!queue.isEmpty()) {
+            int course = queue.poll();
+            topologicalOrder[index++] = course;
+            for (int neighbor: graph.get(course)) {
+                indegrees.put(neighbor, indegrees.get(neighbor) - 1);
+                if (indegrees.get(neighbor) == 0) {
+                    queue.offer(neighbor);
+                }
+            }
+        }
+        if (index < numCourses - 1) {
+            return new int[0];
+        }
+        return topologicalOrder;
+    }
+
     private static int WHITE = 1;
     private static int GRAY = 2;
     private static int BLACK = 3;

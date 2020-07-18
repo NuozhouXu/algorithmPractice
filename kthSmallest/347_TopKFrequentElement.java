@@ -22,29 +22,31 @@ class Solution {
         return results;
     }
 
-    public List<Integer> topKFrequent(int[] nums, int k) {
-        List<Integer>[] buckets = new List[nums.length + 1];
-        HashMap<Integer, Integer> frequency = new HashMap<>();
+    // O(N) time O(N) space
+    public int[] topKFrequentBuckets(int[] nums, int k) {
+        Map<Integer, Integer> count = new HashMap<>();
+        for (int num: nums) {
+            count.put(num, count.getOrDefault(num, 0) + 1);
+        }
+        List<List<Integer>> buckets = new ArrayList<>();
         for (int i = 0; i < nums.length; i++) {
-            frequency.put(nums[i], frequency.getOrDefault(nums[i], 0) + 1);
+            buckets.add(new ArrayList<>());
         }
-        for (Integer key: frequency.keySet()) {
-            Integer freqNum = frequency.get(key);
-            if (buckets[freqNum] == null) {
-                buckets[freqNum] = new ArrayList<>();
+        for (int key: count.keySet()) {
+            buckets.get(count.get(key) - 1).add(key);
+        }
+        int[] output = new int[k];
+        int index = 0;
+        int bucketPtr = nums.length - 1;
+        while (bucketPtr >= 0 && index < k) {
+            if (buckets.get(bucketPtr).size() > 0) {
+                for (int i = 0; i < buckets.get(bucketPtr).size(); i++) {
+                    output[index++] = buckets.get(bucketPtr).get(i);
+                    if (index == k) break;
+                }
             }
-            buckets[freqNum].add(key);
+            bucketPtr--;
         }
-        
-        int count = k;
-        List<Integer> results = new ArrayList<>();
-        for (int i = nums.length; i > 0; i--) {
-            if (buckets[i] != null) {
-                results.addAll(buckets[i]);
-                k = k - buckets[i].size();
-            }
-            if (k <= 0) break;
-        }
-        return results;
+        return output;
     }
 }
