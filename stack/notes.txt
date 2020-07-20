@@ -1,0 +1,12 @@
+Deque (double ended queue)
+
+queue:
+offer() add to the right
+poll() remove from left
+peek() look at left
+
+stack:
+push() add to the left
+pop() remove from left
+peek() look at left
+
