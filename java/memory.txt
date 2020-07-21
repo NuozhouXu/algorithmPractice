@@ -1,0 +1,8 @@
+Java memory
+
+Heap vs stack
+
+Objects are stored on the heap
+variables are a reference to the Object
+local variables are stored on the stack
+primitives are stored on the stack
