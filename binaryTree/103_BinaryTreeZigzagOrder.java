@@ -2,29 +2,28 @@ class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> results = new ArrayList<>();
         if (root == null) return results;
-        Deque<TreeNode> deque = new ArrayDeque<>();
-        deque.add(root);
-        int level = 0;
-        
-        while (!deque.isEmpty()) {
-            LinkedList<Integer> currentLevel = new LinkedList<>();
-            int currentLevelLength = deque.size();
-            for (int i = 0; i < currentLevelLength; i++) {
-                TreeNode node = deque.poll();
-                if (level % 2 == 0) {
-                    currentLevel.add(node.val);
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        int level = 1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            LinkedList<Integer> currLevel = new LinkedList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (level % 2 == 1) {
+                    currLevel.addLast(node.val);
                 } else {
-                    currentLevel.addFirst(node.val);
+                    currLevel.addFirst(node.val);
                 }
                 if (node.left != null) {
-                    deque.add(node.left);
+                    queue.offer(node.left);
                 }
                 if (node.right != null) {
-                    deque.add(node.right);
+                    queue.offer(node.right);
                 }
             }
-            results.add(currentLevel);
             level++;
+            results.add(currLevel);
         }
         return results;
     }

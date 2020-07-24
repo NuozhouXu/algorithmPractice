@@ -8,6 +8,7 @@
  * }
  */
 class Solution {
+    // Note: Elements processed in the inorder fashion on a binary search tree turn out to be sorted in ascending order.
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> results = new ArrayList<>();
         inorderTraversalHelper(root, results);
