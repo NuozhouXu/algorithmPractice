@@ -22,6 +22,7 @@ class Solution {
         return prev;
     }
     
+    // O(N) time O(N/k) space
     public ListNode reverseKGroup(ListNode head, int k) {
         int count = 0;
         ListNode curr = head;
@@ -36,5 +37,28 @@ class Solution {
         }
         
         return head;
+    }
+
+    // O(N) time O(1) space
+    public ListNode reverseKGroupIterative(ListNode head, int k) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prevTail = dummy;
+        ListNode curr = head;
+        while (curr != null) {
+            int count = 0;
+            while (curr != null && count < k) {
+                curr = curr.next;
+                count++;
+            }
+            if (count == k) {
+                ListNode reversedHead = reverseKLinkedList(head, k);
+                prevTail.next = reversedHead;
+                prevTail = head;
+                head = curr;
+            }
+        }
+        prevTail.next = head;
+        return dummy.next;
     }
 }

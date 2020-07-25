@@ -19,4 +19,16 @@ class Solution {
             tempList.remove(tempList.size() - 1);
         }
     }
+
+    private void dfs2(List<List<Integer>> results, int[][] graph, List<Integer> tempList, int node) {
+        if (node == graph.length - 1) {
+            results.add(new ArrayList<>(tempList));
+            return;
+        }
+        for (int neighbor: graph[node]) {
+            tempList.add(neighbor);
+            dfs(results, graph, tempList, neighbor);
+            tempList.remove(tempList.size() - 1);
+        }
+    }
 }
