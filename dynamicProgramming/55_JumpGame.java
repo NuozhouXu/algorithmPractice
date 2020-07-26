@@ -20,22 +20,23 @@ class Solution {
         return false;
     }
 
+    // O(n^2) time O(n) space
     public boolean canJumpBottomUp(int[] nums) {
-        boolean[] memo = new boolean[nums.length];
-        memo[nums.length - 1] = true;
-        
+        boolean[] dp = new boolean[nums.length];
+        dp[nums.length - 1] = true;
         for (int i = nums.length - 2; i >= 0; i--) {
-            int furthestJump = Math.min(i + nums[i], nums.length - 1);
+            int furthestJump = Math.min(nums.length - 1, i + nums[i]);
             for (int j = i + 1; j <= furthestJump; j++) {
-                if (memo[j]) {
-                    memo[i] = true;
+                if (dp[j]) {
+                    dp[i] = true;
                     break;
                 }
             }
         }
-        return memo[0];
+        return dp[0];
     }
 
+    // O(n) time O(1) space
     public boolean canJumpOptimal(int[] nums) {
         int lastPos = nums.length - 1;
         for (int i = nums.length - 1; i >= 0; i--) {
