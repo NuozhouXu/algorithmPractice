@@ -35,6 +35,17 @@ class Trie {
     
     private TrieNode root;
 
+    /**
+     * https://leetcode.com/problems/implement-trie-prefix-tree/solution/
+     * Although hash table has O(1) time complexity for looking for a key, it is not efficient in the following operations :
+     * 1. Finding all keys with a common prefix
+     * 2. Enumerating a dataset of strings in lexicographical order
+     * Another reason why trie outperforms hash table, is that as hash table increases in size, 
+     * there are lots of hash collisions and the search time complexity could deteriorate to O(n), where n is the number of keys inserted. 
+     * Trie could use less space compared to Hash Table when storing many keys with the same prefix.
+     * https://en.wikipedia.org/wiki/Trie
+     */
+
     /** Initialize your data structure here. */
     public Trie() {
         root = new TrieNode();

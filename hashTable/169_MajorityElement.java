@@ -1,4 +1,5 @@
 class Solution {
+    // O(n) time O(1) space
     public int majorityElement(int[] nums) {
         int count = 0;
         Integer candidate = null;

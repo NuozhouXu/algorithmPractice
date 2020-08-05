@@ -8,6 +8,10 @@ class Solution {
         return n == 1;
     }
 
+    public boolean isPowerOfThreeLog(int n) {
+        return (Math.log10(n) / Math.log10(3)) % 1 == 0;
+    }
+
     public boolean isPowerOfThreeOptimized(int n) {
         return n > 0 && 1162261467 % n == 0;
     }
