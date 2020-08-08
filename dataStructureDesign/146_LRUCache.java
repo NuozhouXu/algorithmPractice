@@ -1,79 +1,84 @@
 class LRUCache {
-    class DLinkedNode {
+    class Node {
         int key;
         int val;
-        DLinkedNode prev;
-        DLinkedNode next;
+        Node prev;
+        Node next;
         
-        public DLinkedNode () {}
+        public Node() {}
         
-        public DLinkedNode(int key, int val) {
+        public Node(int key, int val) {
             this.key = key;
             this.val = val;
         }
     }
     
-    public void addNode(DLinkedNode node) {
+    public void addNode(Node node) {
         node.next = dummyHead.next;
         node.prev = dummyHead;
         dummyHead.next.prev = node;
         dummyHead.next = node;
     }
 
-    public void removeNode(DLinkedNode node) {
+    public void removeNode(Node node) {
         node.prev.next = node.next;
         node.next.prev = node.prev;
     }
     
-    private void moveToHead(DLinkedNode node) {
+    private void moveToHead(Node node) {
         removeNode(node);
         addNode(node);
     }
     
-    private DLinkedNode popTail() {
-        DLinkedNode node = dummyTail.prev;
-        removeNode(node);
-        return node;
+    private Node popTail() {
+        if (size > 0) {
+            Node node = dummyTail.prev;
+            removeNode(node);
+            return node;
+        } else {
+            return null;
+        }
     }
     
-    private HashMap<Integer, DLinkedNode> map;
+    private HashMap<Integer, Node> map;
     private int size;
     private int capacity;
-    private DLinkedNode dummyHead, dummyTail;
+    private Node dummyHead, dummyTail;
 
     public LRUCache(int capacity) {
         this.map = new HashMap<>();
         this.size = 0;
         this.capacity = capacity;
-        this.dummyHead = new DLinkedNode();
-        this.dummyTail = new DLinkedNode();
+        this.dummyHead = new Node();
+        this.dummyTail = new Node();
         this.dummyHead.next = this.dummyTail;
         this.dummyTail.prev = this.dummyHead;
     }
     
     public int get(int key) {
         if (!map.containsKey(key)) return -1;
-        DLinkedNode node = map.get(key);
+        Node node = map.get(key);
         moveToHead(node);
         return node.val;
     }
     
     public void put(int key, int value) {
         if (map.containsKey(key)) {
-            DLinkedNode node = map.get(key);
+            Node node = map.get(key);
             node.val = value;
             moveToHead(node);
         } else {
-            DLinkedNode node = new DLinkedNode(key, value);
+            if (size == capacity) {
+                Node deletedNode = popTail();
+                map.remove(deletedNode.key);
+                size--;
+            }
+            
+            Node node = new Node(key, value);
             map.put(key, node);
             addNode(node);
             
             size++;
-            if (size > capacity) {
-                DLinkedNode deletedNode = popTail();
-                map.remove(deletedNode.key);
-                size--;
-            }
         }
     }
 }
