@@ -14,6 +14,7 @@
  * }
  */
 class Solution {
+    // Very similar to 560
     public int pathSum(TreeNode root, int sum) {
         HashMap<Integer, Integer> preSum = new HashMap();
         preSum.put(0,1);
