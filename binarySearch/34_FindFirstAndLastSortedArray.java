@@ -12,9 +12,9 @@ class Solution {
         while (l < r) {
             int mid = l + (r - l) / 2;
             if (nums[mid] < target) {
-                l = mid + 1;
+                l = mid + 1; // doesn't satisfy
             } else {
-                r = mid;
+                r = mid; // satisfy
             }
         }
         return l;
