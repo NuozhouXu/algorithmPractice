@@ -9,6 +9,7 @@ class Solution {
     private int findFirst(int[] nums, int target) {
         int l = 0;
         int r = nums.length - 1;
+        // find l such that l is the leftest element >= target
         while (l < r) {
             int mid = l + (r - l) / 2;
             if (nums[mid] < target) {
@@ -23,12 +24,13 @@ class Solution {
     private int findLast(int[] nums, int target) {
         int l = 0;
         int r = nums.length;
+        // find r such that r is the leftest element > target
         while (l < r) {
             int mid = l + (r - l) / 2;
             if (nums[mid] > target) {
-                r = mid;
+                r = mid; // satisfy
             } else {
-                l = mid + 1;
+                l = mid + 1; // not satisfy
             }
         }
         return r - 1;

@@ -42,12 +42,12 @@ class Solution {
     // O(n) time O(1) space
     public int maxProfitOptimal(int[] prices) {
         if (prices.length == 0) return 0;
-        int s1 = -prices[0];
+        int s1 = Integer.MIN_VALUE;
         int s2 = Integer.MIN_VALUE;
         int s3 = Integer.MIN_VALUE;
         int s4 = Integer.MIN_VALUE;
 
-        for (int i=1; i < prices.length; i++) {            
+        for (int i=0; i < prices.length; i++) {            
             s1 = Math.max(s1, -prices[i]);
             s2 = Math.max(s2, s1+prices[i]);
             s3 = Math.max(s3, s2-prices[i]);
