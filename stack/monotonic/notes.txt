@@ -1,0 +1,6 @@
+When to use monotonic stack?
+When we need to find the first element after a certain element that satisfy a certain criteria
+NextGreaterElement1 need to find the first greater element for each item, maintaining a decreasing monotonic stack
+DailyTemp needs to find the first temp that is hotter than a day, maintaining a decreasing monotonic stack
+RemoveKDigits needs to find the first element that is less than previous ones, then we remove the previous larger elements. maintaining an increasing monotonic stack
+

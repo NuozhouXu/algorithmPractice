@@ -1,10 +1,9 @@
 Number of substrings in a string: n * (n + 1) / 2  O(n^2)
 Number of subsequences of a string: For each character, it is either in the subsequence or not, thus O(2^n)
+Number of subsets of a list of elements: 2^n
 
 Number of permutations of a list of elements: n!
 n choose r permutation n! / (n − r)!
 
 Number of combinations of a list of elements: 
 n choose r combinations n! / r!(n - r)!
-
-Number of subsets of a list of elements: 2^n
