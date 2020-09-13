@@ -1,4 +1,5 @@
 class Solution {
+    // O(K * 9!/k!(9 - k)!) time
     public List<List<Integer>> combinationSum3(int k, int n) {
         List<List<Integer>> results = new ArrayList<>();
         combinationSum3Helper(results, new ArrayList<>(), 1, k, n);
