@@ -1,19 +1,16 @@
 class Solution {
+    // O(nlogn) time
     public int minMeetingRooms(int[][] intervals) {
-        if (intervals.length == 0) {
-            return 0;
-        }
         Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
-        
-        PriorityQueue<int[]> allocator = new PriorityQueue<>(intervals.length, (a, b) -> a[1] - b[1]);
-        
-        allocator.offer(intervals[0]);
-        
-        for (int i = 1; i < intervals.length; i++) {
-            // If the earliest ending meeting in the queue is less than the start time of the new meeting
-            if (allocator.peek()[1] <= intervals[i][0]) allocator.poll();
-            allocator.add(intervals[i]);
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        for (int i = 0; i < intervals.length; i++) {
+            if (pq.isEmpty()) {
+                pq.offer(intervals[i]);
+            } else {
+                if (pq.peek()[1] <= intervals[i][0]) pq.poll();
+                pq.offer(intervals[i]);
+            }
         }
-        return allocator.size();
+        return pq.size();
     }
 }

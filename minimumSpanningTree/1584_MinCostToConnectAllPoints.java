@@ -30,6 +30,7 @@ class DSU {
 }
 
 class Solution {
+    // O(ElogE) or O(ElogV) they are equivalent. https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
     public int minCostConnectPoints(int[][] points) {
         int n = points.length;
         PriorityQueue<int[]> edges = new PriorityQueue<>((a, b) -> a[2] - b[2]);
