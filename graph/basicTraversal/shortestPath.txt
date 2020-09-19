@@ -1,0 +1,12 @@
+BFS works for finding shortest path for unweighted graphs
+
+Single source shortest path problems:
+Variants
+1. Single destination: find a shortest path to a given destination vertex t from each vertex v. Reverse the direciton of the graph.
+2. Single pair: Find a shortest path from u to v for given vertices u and v. 
+3. All pairs: Find a shortest path from u to v for every pairs of vertices u and v.
+
+Properties:
+1. shortest path cannot have negative cycles
+2. shortest path cannot have cycles in general
+3. no negative edge can be reached from the source
