@@ -1,4 +1,5 @@
 class Solution {
+    // at most K distinct
     public int lengthOfLongestSubstringKDistinct(String s, int k) {
         HashMap<Character, Integer> window = new HashMap<>();
         int maxLength = 0;

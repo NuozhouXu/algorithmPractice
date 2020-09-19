@@ -1,4 +1,5 @@
 class Solution {
+    // i.e. at most one distinct char
     public int lengthOfLongestSubstring(String s) {
         HashMap<Character, Integer> window = new HashMap<>();
         int windowStart = 0;
