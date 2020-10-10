@@ -1,4 +1,5 @@
 class Solution {
+    // O(2^n * n)
     public List<String> generateParenthesis(int n) {
         List<String> results = new ArrayList<>();
         backtrack(n, n, "", results);

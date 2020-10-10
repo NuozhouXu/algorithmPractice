@@ -1,4 +1,5 @@
 class Solution {
+    // O(2^n * n)
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> results = new ArrayList<>();
         combinationSumHelper(candidates, target, new LinkedList<>(), results, 0);

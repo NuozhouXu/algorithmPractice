@@ -25,8 +25,8 @@ class Solution {
             if (val > node.val) {
                 // insert right now
                 if (node.right == null) {
-                node.right = new TreeNode(val);
-                return root;
+                    node.right = new TreeNode(val);
+                    return root;
                 }
                 else node = node.right;
             }
@@ -34,8 +34,8 @@ class Solution {
             else {
                 // insert right now
                 if (node.left == null) {
-                node.left = new TreeNode(val);
-                return root;
+                    node.left = new TreeNode(val);
+                    return root;
                 }
                 else node = node.left;
             }

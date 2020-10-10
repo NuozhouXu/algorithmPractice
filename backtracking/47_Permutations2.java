@@ -1,4 +1,5 @@
 class Solution {
+    // O(n * n!)
     public List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> list = new ArrayList<>();
         Arrays.sort(nums);

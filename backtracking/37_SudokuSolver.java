@@ -1,4 +1,5 @@
 class Solution {
+    // O((9!)^9) time
     public void solveSudoku(char[][] board) {
         backtrack(board, 0);
     }
