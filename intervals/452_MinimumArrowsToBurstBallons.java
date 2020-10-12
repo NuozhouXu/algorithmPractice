@@ -17,7 +17,7 @@ class Solution {
     // Sort by end 
     public int findMinArrowShotsGreedy(int[][] points) {
         if (points.length == 0) return 0;
-        Arrays.sort(points, (a, b) -> a[1] - b[1]);
+        Arrays.sort(points, (a, b) -> Integer.compare(a[1], b[1]));
         int numArrows = 1;
         int currEnd = points[0][1];
         for (int i = 1; i < points.length; i++) {
