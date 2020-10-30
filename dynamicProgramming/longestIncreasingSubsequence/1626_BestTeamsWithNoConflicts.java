@@ -1,4 +1,5 @@
 class Solution {
+    // O(n^2) dp
     public int bestTeamScore(int[] scores, int[] ages) {
         int n = scores.length;
         int[] dp = new int[n];

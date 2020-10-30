@@ -49,4 +49,67 @@ class Solution {
             dfs(results, map, root.right, rightLen, K);
         }
     } 
+
+
+    public List<Node> findKDistanceFromTarget(Node root, Node target, int K) {
+        if (root == null) return new ArrayList<>();
+        Map<Node, List<Node>> graph = new HashMap<>();
+        traverse(graph, root);
+        return bfs(graph, target, K);
+      }
+        
+      // O(N) time
+      private void traverse(Map<Node, List<Node>> graph, Node root) {
+        if (root == null) {
+          return;
+        }
+        
+        graph.putIfAbsent(root, new ArrayList<>());
+        
+        if (root.left != null) {
+          graph.putIfAbsent(root.left, new ArrayList<>());
+          graph.get(root).add(root.left);
+          graph.get(root.left).add(root);
+          traverse(graph, root.left);
+        }
+        
+        if (root.right != null) {
+          graph.putIfAbsent(root.right, new ArrayList<>());
+          graph.get(root).add(root.right);
+          graph.get(root.right).add(root);
+          traverse(graph, root.right);
+        }
+      }
+        
+        
+      // O(N) 
+      private List<Node> bfs(Map<Node, List<Node>> graph, Node target, int K) {
+        Deque<Node> queue = new ArrayDeque<>();
+        Set<Node> visited = new HashSet<>();
+        
+        queue.offer(target);
+        visited.add(target);
+        int dist = 0;
+        
+        while (!queue.isEmpty()) {
+          int size = queue.size();
+          List<Node> currLevel = new ArrayList<>();
+          for (int i = 0; i < size; i++) {
+            Node node = queue.poll();
+            currLevel.add(node);
+            for (Node neighbor: graph.get(node)) {
+              if (!visited.contains(neighbor)) {
+                queue.offer(neighbor);
+                visited.add(neighbor);
+              }
+            }
+          }
+          dist++;
+          if (dist == K) {
+            return currLevel;
+          }
+        }
+        
+        return new ArrayList<>();
+      }
 }
