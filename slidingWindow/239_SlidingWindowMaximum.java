@@ -3,11 +3,11 @@ class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
         if (nums == null || k <= 0) return new int[0];
         int[] results = new int[nums.length - k + 1];
-        int ri = 0;
         Deque<Integer> q = new ArrayDeque<>();
+        int ri = 0;
         for (int i = 0; i < nums.length; i++) {
-			// remove numbers out of range k
-			while (!q.isEmpty() && q.peek() < i - k + 1) {
+			// remove the number outside of the window
+			if (!q.isEmpty() && q.peek() < i - k + 1) {
 				q.poll();
 			}
 			// remove smaller numbers in k range as they are useless
