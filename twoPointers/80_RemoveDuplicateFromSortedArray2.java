@@ -1,19 +1,18 @@
 class Solution {
-    // O(N) time O(1) space
     public int removeDuplicates(int[] nums) {
         if (nums.length == 0) return 0;
-        int len = 1;
+        int curr = 1;
         int count = 1;
         for (int i = 1; i < nums.length; i++) {
-            if (nums[i] != nums[i - 1]) {
-                count = 1;
-            } else {
+            if (nums[i] == nums[i - 1]) {
                 count++;
+            } else {
+                count = 1;
             }
             if (count <= 2) {
-                nums[len++] = nums[i];
+                nums[curr++] = nums[i];
             }
         }
-        return len;
+        return curr;
     }
 }
