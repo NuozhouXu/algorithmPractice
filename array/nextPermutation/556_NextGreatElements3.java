@@ -1,6 +1,12 @@
 class Solution {
-    // O(n) time O(1)
-    public void nextPermutation(int[] nums) {
+    public int nextGreaterElement(int n) {
+        char[] digits = Integer.toString(n).toCharArray();
+        nextPermutation(digits);
+        long val = Long.parseLong(new String(digits));
+        return (val <= Integer.MAX_VALUE && val > n) ? (int) val : -1;
+    }
+    
+    public void nextPermutation(char[] nums) {
         int i = nums.length - 2;
         while (i >= 0 && nums[i + 1] <= nums[i]) {
             i--;
@@ -15,7 +21,7 @@ class Solution {
         reverse(nums, i + 1);
     }
     
-     private void reverse(int[] nums, int start) {
+     private void reverse(char[] nums, int start) {
         int i = start, j = nums.length - 1;
         while (i < j) {
             swap(nums, i, j);
@@ -24,8 +30,8 @@ class Solution {
         }
     }
 
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
+    private void swap(char[] nums, int i, int j) {
+        char temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
     }
