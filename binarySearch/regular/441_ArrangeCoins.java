@@ -1,7 +1,7 @@
 class Solution {
     // O(logn) time O(1) space
     public int arrangeCoins(int n) {
-        long l = 0;
+        long l = 1;
         long r = n;
         while (l <= r) {
             long mid = l + (r - l) / 2;
