@@ -73,3 +73,4 @@ recurrence 通常跟 dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1] 相关
 最终的结果是 max {dp[N][c]} for all the cost c.
 
 https://leetcode.com/discuss/interview-question/778035/dynamic-programming-patterns
+https://leetcode.com/discuss/general-discussion/1000929/solved-all-dynamic-programming-dp-problems-in-7-months

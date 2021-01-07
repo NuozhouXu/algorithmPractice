@@ -1,12 +1,6 @@
 class Solution {
-    // O(logN)
     public int missingElement(int[] nums, int k) {
-        int n = nums.length;
-        
-        if (k > missing(n - 1, nums)) {
-            return nums[n - 1] + k - missing(n - 1, nums);
-        }
-        int l = 0, r = n - 1;
+        int l = 0, r = nums.length;
         // find the leftest index such that missing(l, nums) >= k
         while (l < r) {
             int mid = l + (r - l) / 2;

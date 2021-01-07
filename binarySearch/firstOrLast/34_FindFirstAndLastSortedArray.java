@@ -24,7 +24,7 @@ class Solution {
     private int findLast(int[] nums, int target) {
         int l = 0;
         int r = nums.length;
-        // find r such that r is the leftest element > target
+        // find l such that l is the leftest element > target
         while (l < r) {
             int mid = l + (r - l) / 2;
             if (nums[mid] > target) {
@@ -33,6 +33,6 @@ class Solution {
                 l = mid + 1; // not satisfy
             }
         }
-        return r - 1;
+        return l - 1;
     }
 }
