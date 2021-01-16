@@ -1,3 +1,5 @@
+// https://leetcode.com/problems/find-median-from-data-stream/discuss/275207/Solutions-to-follow-ups
+// O(logn) time O(n) space
 class MedianFinder {
     
     PriorityQueue<Integer> maxHeap;

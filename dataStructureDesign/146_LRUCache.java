@@ -1,4 +1,5 @@
 class LRUCache {
+    
     class Node {
         int key;
         int val;
@@ -13,16 +14,20 @@ class LRUCache {
         }
     }
     
-    public void addNode(Node node) {
+    private Map<Integer, Node> map;
+    private Node dummyHead, dummyTail;
+    private int capacity;
+    
+    private void removeNode(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+    
+    private void addNode(Node node) {
         node.next = dummyHead.next;
         node.prev = dummyHead;
         dummyHead.next.prev = node;
         dummyHead.next = node;
-    }
-
-    public void removeNode(Node node) {
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
     }
     
     private void moveToHead(Node node) {
@@ -31,28 +36,23 @@ class LRUCache {
     }
     
     private Node popTail() {
-        if (size > 0) {
+        if (map.size() > 0) {
             Node node = dummyTail.prev;
             removeNode(node);
+            map.remove(node.key);
             return node;
         } else {
             return null;
         }
     }
-    
-    private HashMap<Integer, Node> map;
-    private int size;
-    private int capacity;
-    private Node dummyHead, dummyTail;
 
     public LRUCache(int capacity) {
         this.map = new HashMap<>();
-        this.size = 0;
-        this.capacity = capacity;
         this.dummyHead = new Node();
         this.dummyTail = new Node();
         this.dummyHead.next = this.dummyTail;
         this.dummyTail.prev = this.dummyHead;
+        this.capacity = capacity;
     }
     
     public int get(int key) {
@@ -68,17 +68,12 @@ class LRUCache {
             node.val = value;
             moveToHead(node);
         } else {
-            if (size == capacity) {
-                Node deletedNode = popTail();
-                map.remove(deletedNode.key);
-                size--;
+            if (map.size() == capacity) {
+                popTail();
             }
-            
             Node node = new Node(key, value);
             map.put(key, node);
             addNode(node);
-            
-            size++;
         }
     }
 }

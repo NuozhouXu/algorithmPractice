@@ -14,7 +14,7 @@ class Bucket {
         this.lst = new LinkedList<>();
     }
     
-    public void update(int key, int value) {
+    public void put(int key, int value) {
         boolean found = false;
         for (Pair pair: lst) {
             if (pair.key == key) {
@@ -28,15 +28,6 @@ class Bucket {
         }
     }
     
-    public void remove(int key) {
-        for (Pair pair: lst) {
-            if (pair.key == key) {
-                lst.remove(pair);
-                break;
-            }
-        }
-    }
-    
     public int get(int key) {
         for (Pair pair: lst) {
             if (pair.key == key) {
@@ -44,6 +35,15 @@ class Bucket {
             }
         }
         return -1;
+    }
+    
+    public void remove(int key) {
+        for (Pair pair: lst) {
+            if (pair.key == key) {
+                lst.remove(pair);
+                break;
+            }
+        }
     }
 }
 
@@ -54,10 +54,10 @@ class MyHashMap {
 
     /** Initialize your data structure here. */
     public MyHashMap() {
-        this.buckets = new Bucket[769];
-        this.size = 769;
-        for (int i = 0; i < size; i++) {
-            buckets[i] = new Bucket();
+        this.size = 997;
+        this.buckets = new Bucket[this.size];
+        for (int i = 0; i < 997; i++) {
+            this.buckets[i] = new Bucket();
         }
     }
     
@@ -68,7 +68,7 @@ class MyHashMap {
     /** value will always be non-negative. */
     public void put(int key, int value) {
         int index = hash(key);
-        buckets[index].update(key, value);
+        buckets[index].put(key, value);
     }
     
     /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
