@@ -12,41 +12,44 @@ class Solution {
     }
 
     // Quickselect Time O(n) space O(1)
-    public int findKthLargestOptimal(int[] nums, int k) {
-        return findKthHelper(nums, k, 0, nums.length - 1);
+    public int findKthLargestQuickSelect(int[] nums, int k) {
+        return quickSelect(nums, nums.length - k, 0, nums.length - 1);
     }
     
-    private int findKthHelper(int[] nums, int k, int l, int r) {
-        if (l == r) return nums[l];
-        Random random = new Random();
-        int randomIndex = l + random.nextInt(r - l); 
-        exchange(nums, randomIndex, r);
-        int pivotIndex = partition(nums, l, r);
-        if (pivotIndex == nums.length - k) {
+    private int quickSelect(int[] nums, int k, int l, int r) {
+        int pivotIndex = randomizedPartition(nums, l, r);
+        if (k == pivotIndex) {
             return nums[pivotIndex];
-        } else if (pivotIndex < nums.length - k) {
-            return findKthHelper(nums, k, pivotIndex + 1, r);
+        } else if (k < pivotIndex) {
+            return quickSelect(nums, k, l, pivotIndex - 1);
         } else {
-            return findKthHelper(nums, k, l, pivotIndex - 1);
+            return quickSelect(nums, k, pivotIndex + 1, r);
         }
+    }
+
+    private int randomizedPartition(int[] nums, int l, int r) {
+        Random rand = new Random();
+        int pivotIndex = l + rand.nextInt(r - l + 1);
+        swap(nums, pivotIndex, r);
+        return partition(nums, l, r);
     }
     
     private int partition(int[] nums, int l, int r) {
-        int pivotVal = nums[r];
+        int pivot = nums[r];
         int i = l - 1;
         for (int j = l; j < r; j++) {
-            if (nums[j] <= pivotVal) {
+            if (nums[j] <= pivot) {
                 i++;
-                exchange(nums, i, j);
+                swap(nums, i, j);
             }
         }
-        exchange(nums, i + 1, r);
+        swap(nums, i + 1, r);
         return i + 1;
     }
     
-    private void exchange(int[] nums, int i, int j) {
-        int temp = nums[j];
-        nums[j] = nums[i];
-        nums[i] = temp;
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }

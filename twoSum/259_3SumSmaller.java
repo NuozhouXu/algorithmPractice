@@ -14,7 +14,7 @@ class Solution {
         while (left < right) {
             int currentSum = nums[left] + nums[right];
             if (currentSum < target) {
-                count += right - left;
+                count += right - left; // important
                 left++;
             } else {
                 right--;
