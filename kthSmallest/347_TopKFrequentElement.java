@@ -49,4 +49,60 @@ class Solution {
         }
         return output;
     }
+
+    // O(n) average case O(n^2) worst case
+    public int[] topKFrequentQuickSelect(int[] nums, int k) {
+        Map<Integer, Integer> count = new HashMap<>();
+        for (int num: nums) {
+            count.put(num, count.getOrDefault(num, 0) + 1);
+        }
+        
+        int n = count.size();
+        int[] unique = new int[n];
+        int i = 0;
+        for (int num: count.keySet()) {
+            unique[i++] = num;
+        }
+        
+        quickSelect(unique, count, 0, n - 1, n - k);
+        return Arrays.copyOfRange(unique, n - k, n);
+    }
+    
+    private void quickSelect(int[] nums, Map<Integer, Integer> count, int l, int r, int k) {
+        int partitionIndex = randomizedPartition(nums, count, l, r);
+        if (partitionIndex == k) {
+            return;
+        } else if (partitionIndex < k) {
+            quickSelect(nums, count, partitionIndex + 1, r, k);
+        } else {
+            quickSelect(nums, count, l, partitionIndex - 1, k);
+        }
+    }
+    
+    private int randomizedPartition(int[] nums, Map<Integer, Integer> count, int l, int r) {
+        Random rand = new Random();
+        int randPivot = l + rand.nextInt(r - l + 1);
+        swap(nums, randPivot, r);
+        return partition(nums, count, l, r);
+    }
+    
+    private int partition(int[] nums, Map<Integer, Integer> count, int l, int r) {
+        int pivot = nums[r];
+        int pivotFreq = count.get(pivot);
+        int i = l - 1;
+        for (int j = l; j < r; j++) {
+            if (count.get(nums[j]) <= pivotFreq) {
+                i++;
+                swap(nums, i, j);
+            }
+        }
+        swap(nums, i + 1, r);
+        return i + 1;
+    }
+    
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
 }

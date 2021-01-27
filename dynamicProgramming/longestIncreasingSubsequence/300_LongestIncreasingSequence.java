@@ -46,17 +46,19 @@ class Solution {
     public int lengthOfLISOptimal(int[] nums) {
         int[] tails = new int[nums.length];
         int size = 0;
-        for (int x : nums) {
-            int i = 0, j = size;
-            while (i < j) {
-                int m = (i + j) / 2;
-                if (tails[m] < x)
-                    i = m + 1;
-                else
-                    j = m;
+        for (int num : nums) {
+            int l = 0, r = size;
+            while (l < r) {
+                int mid = l + (r - l) / 2;
+                // Find the leftest position, where num can be used
+                if (tails[mid] < num) {
+                    l = mid + 1; 
+                } else {
+                    r = mid; 
+                }
             }
-            tails[i] = x;
-            if (i == size) ++size;
+            tails[l] = num;
+            if (l == size) size++;
         }
         return size;
     }

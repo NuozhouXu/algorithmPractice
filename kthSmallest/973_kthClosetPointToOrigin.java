@@ -15,40 +15,49 @@ class Solution {
     }
 
     public int[][] kClosestOptimal(int[][] points, int K) {
-        return kClosestHelper(points, 0, points.length - 1, K);
+        return quickSelect(points, 0, points.length - 1, K);
     }
     
-    private int[][] kClosestHelper(int[][] points, int l, int r, int K) {
-        int pivotIndex = partition(points, l, r);
-        if (pivotIndex == K - 1) {
+    private int[][] quickSelect(int[][] points, int l, int r, int K) {
+        int partitionIndex = randomizedPartition(points, l, r);
+        if (partitionIndex == K - 1) {
             return Arrays.copyOfRange(points, 0, K);
-        } else if (pivotIndex < K) {
-            return kClosestHelper(points, pivotIndex + 1, r, K);
+        } else if (partitionIndex < K - 1) {
+            return quickSelect(points, partitionIndex + 1, r, K);
         } else {
-            return kClosestHelper(points, l, pivotIndex - 1, K);
+            return quickSelect(points, l, partitionIndex - 1, K);
         }
+    }
+    
+    private int randomizedPartition(int[][] points, int l, int r) {
+        Random rand = new Random();
+        int pivotIndex = l + rand.nextInt(r - l + 1);
+        swap(points, pivotIndex, r);
+        return partition(points, l, r);
     }
     
     private int partition(int[][] points, int l, int r) {
-        int[] pivotValue = points[r];
+        int[] pivot = points[r];
         int i = l - 1;
         for (int j = l; j < r; j++) {
-            if (compare(points[j], pivotValue) <= 0) {
+            if (compareTo(points[j], pivot) <= 0) {
                 i++;
-                exchange(points, i, j);
+                swap(points, i, j);
             }
         }
-        exchange(points, i + 1, r);
+        swap(points, i + 1, r);
         return i + 1;
     }
     
-    private void exchange(int[][] points, int i, int j) {
-        int[] temp = points[j];
-        points[j] = points[i];
-        points[i] = temp;
+    private int compareTo(int[] point1, int[] point2) {
+        int val1 = point1[0] * point1[0] + point1[1] * point1[1];
+        int val2 = point2[0] * point2[0] + point2[1] * point2[1];
+        return val1 - val2;
     }
     
-    private int compare(int[] p1, int[] p2) {
-        return p1[0] * p1[0] + p1[1] * p1[1] - p2[0] * p2[0] - p2[1] * p2[1];
+    private void swap(int[][] points, int i, int j) {
+        int[] temp = points[i];
+        points[i] = points[j];
+        points[j] = temp;
     }
 }
