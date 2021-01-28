@@ -1,0 +1,54 @@
+~ not
+^ xor
+| or
+& and
+<< left shift (equivalent to times 2)
+>> arithmetic right shift: right shift, then put the sign bit on the leftmost bit (equivalent to divide by 2)
+>>> logical right shift: right shift, then put 0 on the leftmost bit
+
+x ^ 0 = x
+x ^ 1s = ~x
+x ^ x = 0
+
+x & 0 = 0
+x & 1s = x
+x & x = x
+
+x | 0 = x
+x | 1s = 1s
+x | x = x
+
+^, | and & are all commutative and associative
+a ^ b = b ^ a
+a ^ (b ^ c) = (a ^ b) ^ c
+
+java integer
+max value 2^31 - 1
+min value 2^31
+
+2's complement (4 bit example)
+positive 0 111 -> 7
+negative 1 001 -> -7
+first bit is the sign bit: 0 -> positive, 1 -> negative
+positive/negative conversion
+flip all bits, then plus 1
+
+get bit at location i (from the right, start with 0) of num:
+(num & (1 << i)) != 0
+
+set bit at location i:
+num | (1 << i)
+
+clear bit at location i:
+num & ~(1 << i)
+
+update bit at location i:
+first clear, then set
+
+get rightmost 1-bit:
+x & (~x)
+
+flip rightmost 1-bit:
+n & (n - 1)
+
+
