@@ -18,7 +18,7 @@ public class Codec {
     public TreeNode deserialize(String data) {
         if (data.length() == 0) return null;
         Deque<String> queue = new ArrayDeque<>();
-        String[] vals = data.split("\\,");
+        String[] vals = data.split(",");
         for (String val: vals) {
             if (val.length() > 0) queue.offer(val);
         }

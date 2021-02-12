@@ -24,4 +24,24 @@ class Solution {
         convertBST(root.left);
         return root;
     }
+
+    public TreeNode convertBSTIterative(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+        int sum = 0;
+        TreeNode node = root;
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        while (node != null || !stack.isEmpty()) {
+            while (node != null) {
+                stack.push(node);
+                node = node.right;
+            }
+            node = stack.pop();
+            sum += node.val;
+            node.val = sum;
+            node = node.left;
+        }
+        return root;
+    }
 }
