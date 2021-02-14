@@ -44,5 +44,26 @@ class Solution {
         return root;
     }
 
-    
+    public Node connectNoSpace(Node root) {
+        if (root == null) return null;
+        Node node = root;
+        Node nextLevelDummyHead = new Node(-1);
+        while (node != null) {
+            Node curr = nextLevelDummyHead;
+            while (node != null) {
+                if (node.left != null) {
+                    curr.next = node.left;
+                    curr = curr.next;
+                }
+                if (node.right != null) {
+                    curr.next = node.right;
+                    curr = curr.next;
+                }
+                node = node.next;
+            }
+            node = nextLevelDummyHead.next;
+            nextLevelDummyHead.next = null;
+        }
+        return root;
+    }
 }
