@@ -54,7 +54,6 @@ class Solution {
     private static int WHITE = 1;
     private static int GRAY = 2;
     private static int BLACK = 3;
-    private boolean hasCycle = false;
     
     public String alienOrderDFS(String[] words) {
         Map<Character, List<Character>> graph = new HashMap<>();
@@ -87,32 +86,28 @@ class Solution {
         
         for (Character c: graph.keySet()) {
             if (colors.get(c) == WHITE) {
-                dfs(graph, colors, sb, c);
-                if (hasCycle) {
+                if (dfs(graph, colors, sb, c)) {
                     return "";
                 }
             }
         }
         
-        if (sb.length() < graph.size()) {
-            return "";
-        }
         return sb.toString();
     }
     
-    private void dfs(Map<Character, List<Character>> graph, Map<Character, Integer> colors, StringBuilder sb, Character c) {
-        if (hasCycle) {
-            return;
-        }
+    private boolean dfs(Map<Character, List<Character>> graph, Map<Character, Integer> colors, StringBuilder sb, Character c) {
         colors.put(c, GRAY);
         for (Character neighbor: graph.get(c)) {
             if (colors.get(neighbor) == WHITE) {
-                dfs(graph, colors, sb, neighbor);
+                if (dfs(graph, colors, sb, neighbor)) {
+                    return true;
+                }
             } else if (colors.get(neighbor) == GRAY) {
-                hasCycle = true;
+                return true;
             }
         }
         colors.put(c, BLACK);
         sb.append(c);
+        return false;
     }  
 }

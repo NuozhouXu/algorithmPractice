@@ -2,7 +2,7 @@ class Solution {
     // O(2^n * n)
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> results = new ArrayList<>();
-        combinationSumHelper(candidates, target, new LinkedList<>(), results, 0);
+        combinationSumHelper(candidates, target, new ArrayList<>(), results, 0);
         return results;
     }
     
@@ -10,7 +10,7 @@ class Solution {
         if (target < 0) {
             return;
         } else if (target == 0) {
-            results.add(new LinkedList<>(tempList));
+            results.add(new ArrayList<>(tempList));
             return;
         }
         for (int i = start; i < candidates.length; i++) {
