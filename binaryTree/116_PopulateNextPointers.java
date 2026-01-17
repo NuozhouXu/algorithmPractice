@@ -22,9 +22,9 @@ class Node {
 */
 class Solution {
     public Node connect(Node root) {
-        if (root == null) return null;
+        if (root == null) return root;
         Deque<Node> queue = new ArrayDeque<>();
-        queue.add(root);
+        queue.offer(root);
         while (!queue.isEmpty()) {
             int size = queue.size();
             for (int i = 0; i < size; i++) {
@@ -33,10 +33,10 @@ class Solution {
                     node.next = queue.peek();
                 }
                 if (node.left != null) {
-                    queue.add(node.left);
+                    queue.offer(node.left);
                 }
                 if (node.right != null) {
-                    queue.add(node.right);
+                    queue.offer(node.right);
                 }
             }
         }

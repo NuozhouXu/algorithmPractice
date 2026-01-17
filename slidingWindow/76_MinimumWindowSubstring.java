@@ -23,7 +23,7 @@ class Solution {
                 char leftChar = s.charAt(windowStart);
                 windowStart++;
                 if (map.containsKey(leftChar)) {
-                    if (map.get(leftChar) == 0) matched --;
+                    if (map.get(leftChar) == 0) matched--;
                     map.put(leftChar, map.get(leftChar) + 1);
                 }
             }

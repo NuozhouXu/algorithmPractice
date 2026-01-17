@@ -1,5 +1,45 @@
 class FileSystem {
-    
+
+    private class FileNode {
+        private TreeMap<String, FileNode> children;
+        private StringBuilder file;
+        private String name;
+        private boolean isFile;
+
+        public FileNode(String name) {
+            this.children = new TreeMap<>();
+            this.file = new StringBuilder();
+            this.isFile = false;
+            this.name = name;
+        }
+
+        public void addContent(String content) {
+            file.append(content);
+        }
+
+        public void setIsFile() {
+            this.isFile = true;
+        }
+
+        public String getContent() {
+            return this.file.toString();
+        }
+
+        public TreeMap<String, FileNode> getChildren() {
+            return this.children;
+        }
+
+        public List<String> getChildrenList() {
+            List<String> results = new ArrayList<>();
+            if (this.isFile) {
+                results.add(this.name);
+            } else {
+                results.addAll(this.children.keySet());
+            }
+            return results;
+        }
+    }
+
     private FileNode root;
 
     public FileSystem() {
@@ -7,7 +47,8 @@ class FileSystem {
     }
     
     public List<String> ls(String path) {
-        return findNode(path).getList();
+        FileNode node = findNode(path);
+        return node.getChildrenList();
     }
     
     public void mkdir(String path) {
@@ -15,15 +56,16 @@ class FileSystem {
     }
     
     public void addContentToFile(String filePath, String content) {
-        FileNode file = findNode(filePath);
-        file.setIsFile();
-        file.addContent(content);
+        FileNode node = findNode(filePath);
+        node.setIsFile();
+        node.addContent(content);
     }
     
     public String readContentFromFile(String filePath) {
-        return findNode(filePath).getContent();
+        FileNode node = findNode(filePath);
+        return node.getContent();
     }
-    
+
     private FileNode findNode(String path) {
         String[] files = path.split("/");
         
@@ -35,53 +77,13 @@ class FileSystem {
         }
         return curr;
     }
-    
-    private class FileNode {
-        private TreeMap<String, FileNode> children;
-        private StringBuilder file;
-        private String name;
-        private boolean isFile;
-
-        public FileNode(String name) {
-            children = new TreeMap<>();
-            file = new StringBuilder();
-            isFile = false;
-            this.name = name;
-        }
-
-        public String getContent(){
-            return file.toString();
-        }
-
-        public String getName(){
-            return name;
-        }
-
-        public void addContent(String content){
-            file.append(content);
-        }
-
-        public boolean isFile(){
-            return isFile;
-        }
-        
-        public void setIsFile() {
-            isFile = true;
-        }
-        
-        public TreeMap<String, FileNode> getChildren() {
-            return children;
-        }
-
-        public List<String> getList(){
-            List<String> list = new ArrayList<>();
-            if (isFile()) {
-                list.add(getName());
-            } else {
-                list.addAll(children.keySet());
-            }
-
-            return list;
-        }
-    }
 }
+
+/**
+ * Your FileSystem object will be instantiated and called as such:
+ * FileSystem obj = new FileSystem();
+ * List<String> param_1 = obj.ls(path);
+ * obj.mkdir(path);
+ * obj.addContentToFile(filePath,content);
+ * String param_4 = obj.readContentFromFile(filePath);
+ */
